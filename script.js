@@ -19,7 +19,7 @@ window.onload = function pgCarregada() {
       document.getElementById('texto-tarefa').value = '';
       // eslint-disable-next-line no-use-before-define
       newTask.addEventListener('click', paint);
-      newTask.addEventListener('dblclick', complete)
+      newTask.addEventListener('dblclick', complete);
     }
   }
 
@@ -60,4 +60,14 @@ window.onload = function pgCarregada() {
   }
 
   limpaCompletBtn.addEventListener('click', clearCompleted);
+
+  const removeSelectedBtn = document.getElementById('remover-selecionado');
+
+  function removeSelected() {
+    if (document.querySelector('.selected')) {
+      document.querySelector('.selected').remove();
+    }
+  }
+
+  removeSelectedBtn.addEventListener('click', removeSelected);
 };
