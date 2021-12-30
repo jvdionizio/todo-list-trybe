@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-use-before-define */
 /* eslint-disable max-lines-per-function */
 /* eslint-disable padded-blocks */
 window.onload = function pgCarregada() {
@@ -15,26 +18,46 @@ window.onload = function pgCarregada() {
       listaTarefas.appendChild(newTask);
       document.getElementById('texto-tarefa').value = '';
       // eslint-disable-next-line no-use-before-define
-      painting();
+      newTask.addEventListener('click', paint);
+      newTask.addEventListener('dblclick', complete)
     }
   }
 
   criarTarefa.addEventListener('click', createTask);
 
-  function painting() {
-    const tasks = document.getElementsByClassName('tarefa');
+  function complete(sourceEvent) {
+    // "toggle" adiciona a classe ao elemento se ele não a tiver e a remove se ele tiver, por isso não é necessário fazer outra função para remover a classe "completed"
+    sourceEvent.target.classList.toggle('completed');
+  }
 
-    function paint(sourceEvent) {
-      // eslint-disable-next-line no-param-reassign
-      for (let i = 0; i < tasks.length; i += 1) {
-        tasks[i].classList.remove('selected');
-      }
-      sourceEvent.target.classList.add('selected');
+  function paint(sourceEvent) {
+    if (document.querySelector('.selected')) {
+      document.querySelector('.selected').classList.remove('selected');
     }
 
-    for (let i = 0; i < tasks.length; i += 1) {
-      tasks[i].addEventListener('click', paint);
+    sourceEvent.target.classList.add('selected');
+  }
+
+  const limpaTudoBtn = document.getElementById('apaga-tudo');
+
+  function clearAll() {
+    for (let i = listaTarefas.childNodes.length - 1; i >= 0; i -= 1) {
+      listaTarefas.childNodes[i].remove();
     }
   }
-  painting();
+
+  limpaTudoBtn.addEventListener('click', clearAll);
+
+  const limpaCompletBtn = document.getElementById('remover-finalizados');
+
+  function clearCompleted() {
+    for (let i = listaTarefas.childNodes.length - 1; i >= 0; i -= 1) {
+      const currentElement = listaTarefas.childNodes[i];
+      if (currentElement.classList.contains('completed')) {
+        currentElement.remove();
+      }
+    }
+  }
+
+  limpaCompletBtn.addEventListener('click', clearCompleted);
 };

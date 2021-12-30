@@ -33,6 +33,10 @@ body{
   background-color: rgb(128,128,128);
 }
 
+.completed{
+  text-decoration: line-through solid rgb(0, 0, 0);
+}
+
 #lista-tarefas li{
   width: fit-content;
   border-radius:10px;
