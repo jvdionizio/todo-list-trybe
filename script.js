@@ -26,11 +26,13 @@ window.onload = function pgCarregada() {
 
     function paint(sourceEvent) {
       // eslint-disable-next-line no-param-reassign
-      sourceEvent.target.style.backgroundColor = 'rgb(128, 128, 128)';
+      for (let i = 0; i < tasks.length; i += 1) {
+        tasks[i].classList.remove('selected');
+      }
+      sourceEvent.target.classList.add('selected');
     }
 
     for (let i = 0; i < tasks.length; i += 1) {
-      tasks[i].style.backgroundColor = 'white';
       tasks[i].addEventListener('click', paint);
     }
   }
